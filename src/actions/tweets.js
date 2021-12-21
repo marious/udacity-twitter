@@ -4,6 +4,14 @@ import { showLoading, hideLoading } from 'react-redux-loading-bar';
 export const RECEIVE_TWEETS = 'RECEIVE_TWEETS';
 export const TOGGLE_TWEET = 'TOGGLE_TWEET';
 export const ADD_TWEET = 'ADD_TWEET';
+export const SET_TWEET_ID = 'SET_TWEET_ID';
+
+export const setTweetId = id => {
+  return {
+    type: SET_TWEET_ID,
+    id,
+  };
+};
 
 export const receiveTweets = tweets => {
   return {

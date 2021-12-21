@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { connect } from 'react-redux';
 import { handleAddTweet } from '../actions/tweets';
+import { Redirect } from 'react-router-dom';
 
 const NewTweet = ({ id = null, addNewTweet }) => {
   const [inputValue, setInputValue] = useState('');
+  const [toHome, setToHome] = useState(false);
 
   const handleChange = e => {
     const text = e.target.value;
@@ -14,6 +16,7 @@ const NewTweet = ({ id = null, addNewTweet }) => {
     e.preventDefault();
     addNewTweet(inputValue, id);
     setInputValue('');
+    setToHome(true);
   };
 
   {

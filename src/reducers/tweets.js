@@ -1,7 +1,17 @@
-import { RECEIVE_TWEETS, TOGGLE_TWEET, ADD_TWEET } from '../actions/tweets';
+import {
+  RECEIVE_TWEETS,
+  TOGGLE_TWEET,
+  ADD_TWEET,
+  SET_TWEET_ID,
+} from '../actions/tweets';
 
 const tweets = (state = {}, action) => {
   switch (action.type) {
+    case SET_TWEET_ID:
+      return {
+        ...state,
+        ...action.id,
+      };
     case RECEIVE_TWEETS:
       return {
         ...state,
@@ -26,7 +36,7 @@ const tweets = (state = {}, action) => {
         replyingTo = {
           [tweet.replyingTo]: {
             ...state[tweet.replyingTo],
-            replies: state[tweet.replyTo].replies.concat([tweet.id]),
+            replies: state[tweet.replyingTo].replies.concat([tweet.id]),
           },
         };
       }
