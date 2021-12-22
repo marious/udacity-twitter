@@ -2,10 +2,16 @@ import { connect, useSelector } from 'react-redux';
 import Tweet from './Tweet';
 import NewTweet from './NewTweet';
 import { useParams } from 'react-router-dom';
-import { setTweetId } from '../actions/tweets';
-const TweetPage = ({ replies, setTweetId }) => {
+
+const TweetPage = () => {
   const { id } = useParams();
-  setTweetId(id);
+  const replies = useSelector(state => {
+    return !state.tweets[id]
+      ? []
+      : state.tweets[id].replies.sort(
+          (a, b) => state.tweets[b].timestamp - state.tweets[a].timestamp
+        );
+  });
 
   return (
     <div>
@@ -23,23 +29,4 @@ const TweetPage = ({ replies, setTweetId }) => {
   );
 };
 
-const mapStateToProps = ({ tweets, id }) => {
-  console.log(id);
-  return {
-    replies: [],
-    id: 1,
-  };
-  return {
-    id,
-    replies: !tweets[id]
-      ? []
-      : tweets[id].replies.sort(
-          (a, b) => tweets[b].timestamp - tweets[a].timestamp
-        ),
-  };
-};
-
-const mapDispatchToProps = dispatch => ({
-  setTweetId: () => dispatch(setTweetId()),
-});
-export default connect(mapStateToProps, mapDispatchToProps)(TweetPage);
+export default TweetPage;

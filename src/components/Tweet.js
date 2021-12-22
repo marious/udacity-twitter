@@ -1,17 +1,20 @@
 import { connect } from 'react-redux';
 import { formatTweet, formatDate } from '../utils/helpers';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import {
   TiArrowBackOutline,
   TiHeartOutline,
   TiHeartFullOutline,
 } from 'react-icons/ti/index';
 import { handleToggleTweet } from '../actions/tweets';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 const Tweet = ({ authedUser, tweet, toggleLikeTweet }) => {
+  let history = useHistory();
+
   const toParent = (e, id) => {
     e.preventDefault();
-    // todo: Redirect to parent tweet
+    history.push(`/tweet/${id}`);
   };
 
   const handleLike = e => {
@@ -78,4 +81,4 @@ const mapDispatchToProps = dispatch => ({
   toggleLikeTweet: tweet => dispatch(handleToggleTweet(tweet)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Tweet);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Tweet));
